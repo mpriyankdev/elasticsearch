@@ -7,7 +7,9 @@ import pl.allegro.tech.embeddedelasticsearch.EmbeddedElastic;
 import pl.allegro.tech.embeddedelasticsearch.IndexSettings;
 import pl.allegro.tech.embeddedelasticsearch.PopularProperties;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 public abstract class EmbeddedElasticsearchTest {
@@ -20,6 +22,8 @@ public abstract class EmbeddedElasticsearchTest {
 
             embeddedElastic = EmbeddedElastic.builder()
                     .withElasticVersion("6.4.2")
+                    .withInstallationDirectory(new File("/d/softwares/elasticsearch/"))
+                    .withStartTimeout(30, TimeUnit.SECONDS)
                     .withSetting(PopularProperties.TRANSPORT_TCP_PORT, 9200)
                     .withSetting(PopularProperties.CLUSTER_NAME, "test_cluster")
                     //.withPlugin("analysis-stempel")
